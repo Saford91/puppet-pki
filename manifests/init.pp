@@ -1,10 +1,5 @@
 class pki {
   
-  group { 'ssl-cert':
-    ensure => present,
-    system => true,
-  }
-
   $host = $::trusted["certname"];
   file { '/etc/ssl/private/host.key':
     ensure  => link,
@@ -16,21 +11,24 @@ class pki {
   }
 
   file { '/etc/ssl/private':
-    ensure  => directory,
-    group   => 'ssl-cert',
-    require => Group['ssl-cert'],
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0700',
   }
 
   file { '/etc/puppetlabs/puppet/ssl/private_keys':
-    ensure  => directory,
-    group   => 'ssl-cert',
-    require => Group['ssl-cert'],
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0700',
   }
 
   file { "/etc/puppetlabs/puppet/ssl/private_keys/${host}.pem":
-    ensure  => present,
-    group   => 'ssl-cert',
-    require => Group['ssl-cert'],
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0600',
   }
 
   file { '/etc/ssl/certs/host.crt':
