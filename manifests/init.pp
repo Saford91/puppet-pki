@@ -5,8 +5,7 @@ class pki {
     ensure  => link,
     target  => "/etc/puppetlabs/puppet/ssl/private_keys/${host}.pem",
     require => [
-      File['/etc/puppetlabs/puppet/ssl/private_keys'],
-      File["/etc/puppetlabs/puppet/ssl/private_keys/${host}.pem"],
+      File['/etc/ssl/private'],
     ],
   }
 
@@ -15,20 +14,6 @@ class pki {
     owner  => 'root',
     group  => 'root',
     mode   => '0700',
-  }
-
-  file { '/etc/puppetlabs/puppet/ssl/private_keys':
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0700',
-  }
-
-  file { "/etc/puppetlabs/puppet/ssl/private_keys/${host}.pem":
-    ensure => present,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0600',
   }
 
   file { '/etc/ssl/certs/host.crt':
